@@ -610,7 +610,7 @@ body {
   align-items: center;
   justify-content: space-between;
   min-height: 83px;
-  padding: 2px 0 41px;
+  padding: 10px 20px 10px;
   background-color: #000;
 }
 
@@ -1431,3 +1431,5 @@ body {
     color: var(--dark);
   }
 }
+
+/*# sourceMappingURL=style.css.map */

@@ -8,8 +8,19 @@ const fullscreenBtn = document.querySelector('[data-js="fullscreen-button"]');
 const progressRange = document.querySelector('[data-js="progress-range"]');
 const volumeRange = document.querySelector('[data-js="volume-range"]');
 
-let currentVolume = 0.5;
+const currentVolume = 0.5;
 let progression;
+
+const setRangeBackground = (element, value) => {
+  element.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 ${value
+  * 100}%, #c4c4c4 ${value * 100}%, #c4c4c4 100%)`;
+};
+
+const updateProgress = () => {
+  const progress = viewer.currentTime / viewer.duration;
+  progressRange.value = progress;
+  setRangeBackground(progressRange, progress);
+};
 
 const togglePlay = (evt) => {
   evt.preventDefault();
@@ -31,7 +42,6 @@ const toggleVolume = (evt) => {
     viewer.muted = false;
     volumeBtn.classList.remove('muted');
     volumeRange.value = currentVolume;
-
   } else {
     viewer.muted = true;
     volumeBtn.classList.add('muted');
@@ -49,14 +59,9 @@ const playHandler = (evt) => {
   }
 };
 
-const setRangeBackground = (element, value) => {
-  element.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 ${value *
-  100}%, #c4c4c4 ${value * 100}%, #c4c4c4 100%)`;
-};
-
 const progressRangeHandler = (evt) => {
   const element = evt.target;
-  const value = element.value;
+  const { value } = element;
   if (viewer.duration) {
     viewer.currentTime = value * viewer.duration;
   }
@@ -79,12 +84,6 @@ const fullscreenHandler = () => {
   viewer.requestFullscreen().then();
 };
 
-const updateProgress = () => {
-  const progress = viewer.currentTime / viewer.duration;
-  progressRange.value =  progress;
-  setRangeBackground(progressRange, progress);
-};
-
 playBtn.addEventListener('click', togglePlay);
 controlPlayBtn.addEventListener('click', togglePlay);
 viewer.addEventListener('click', togglePlay);
@@ -96,13 +95,11 @@ fullscreenBtn.addEventListener('click', fullscreenHandler);
 progressRange.addEventListener('input', progressRangeHandler);
 volumeRange.addEventListener('input', volumeRangeHandler);
 viewer.addEventListener('ended', (evt) => {
-
   viewer.currentTime = 0;
   progressRange.value = 0;
   progressRange.dispatchEvent(inputEvt);
   playHandler(evt);
   controlPlayBtn.textContent = '►';
-
 });
 
 //

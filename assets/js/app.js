@@ -1,10 +1,8 @@
 import i18n from './translate.js';
 
-
 const THEME_NAME_LIGHT = 'light';
 const THEME_NAME_DARK = 'dark';
 const LANG_BUTTONS = document.querySelectorAll('[data-js-lang]');
-
 
 const openMenu = () => {
   const burgerMenuNav = document.querySelector('[data-js="burger-menu-nav"]');
@@ -27,22 +25,20 @@ const changeImage = (season) => {
 
 const preloadImages = () => {
   const seasons = [
-    'winter', 'spring', 'summer', 'autumn'
+    'winter', 'spring', 'summer', 'autumn',
   ];
 
-  seasons.forEach(season => {
+  seasons.forEach((season) => {
     for (let i = 1; i <= 6; i++) {
       const img = new Image();
       img.src = `./assets/content/${season}/${i}.jpg`;
     }
   });
-
 };
 
 const translate = (lang = 'en') => {
-  document.querySelectorAll('[data-i18]').forEach(currentElement => {
-
-    const i18nKey = currentElement.dataset['i18'];
+  document.querySelectorAll('[data-i18]').forEach((currentElement) => {
+    const i18nKey = currentElement.dataset.i18;
     if (currentElement.placeholder) {
       currentElement.placeholder = i18n[lang][i18nKey];
     } else {
@@ -61,7 +57,7 @@ const setTheme = (theme = THEME_NAME_LIGHT) => {
 };
 
 const setLang = (lang = 'en') => {
-  LANG_BUTTONS.forEach(btn => {
+  LANG_BUTTONS.forEach((btn) => {
     btn.classList.remove('lang__link--active');
   });
   const activeButton = document.querySelector(`[data-js-lang="${lang}"]`);
@@ -70,11 +66,10 @@ const setLang = (lang = 'en') => {
   }
 
   translate(lang);
-
 };
 
 const main = () => {
-  const lang = window.localStorage.getItem('lang');
+  const lang = window.localStorage.getItem('lang') || 'en';
   setLang(lang);
 
   const burgerBtn = document.querySelector('[data-js="burger-button"]');
@@ -83,12 +78,11 @@ const main = () => {
     burgerBtn.addEventListener('click', (evt) => {
       evt.preventDefault();
 
-      //TODO: decomposition this to toggleMenu
-      const isActive = burgerBtn.dataset['isActive'] === 'true';
-      burgerBtn.dataset['isActive'] = !isActive;
+      // TODO: decomposition this to toggleMenu
+      const isActive = burgerBtn.dataset.isActive === 'true';
+      burgerBtn.dataset.isActive = !isActive;
       burgerBtn.classList.toggle('burger--active');
       isActive ? closeMenu() : openMenu();
-
     });
   }
 
@@ -96,10 +90,9 @@ const main = () => {
   if (mainMenu) {
     mainMenu.addEventListener('click', (evt) => {
       if (evt.target.dataset.js === 'main-menu-link') {
-
-        //TODO: decomposition this to toggleMenu
-        const isActive = burgerBtn.dataset['isActive'] === 'true';
-        burgerBtn.dataset['isActive'] = !isActive;
+        // TODO: decomposition this to toggleMenu
+        const isActive = burgerBtn.dataset.isActive === 'true';
+        burgerBtn.dataset.isActive = !isActive;
         burgerBtn.classList.toggle('burger--active');
         isActive ? closeMenu() : openMenu();
       }
@@ -108,30 +101,26 @@ const main = () => {
 
   const portfolioButtons = document.querySelectorAll('[data-season]');
   if (portfolioButtons) {
-
-    portfolioButtons.forEach(btn => {
-      btn.addEventListener('click', (evt => {
-
-        portfolioButtons.forEach(btn => {
+    portfolioButtons.forEach((btn) => {
+      btn.addEventListener('click', ((evt) => {
+        portfolioButtons.forEach((btn) => {
           btn.classList.add('button--transparent');
         });
 
         evt.target.classList.remove('button--transparent');
 
-        const season = evt.target.dataset.season;
+        const { season } = evt.target.dataset;
         changeImage(season);
-
       }));
     });
   }
 
   if (LANG_BUTTONS) {
-    LANG_BUTTONS.forEach(btn => {
+    LANG_BUTTONS.forEach((btn) => {
       btn.addEventListener('click', (evt) => {
         const { jsLang: lang } = evt.target.dataset;
         setLang(lang);
       });
-
     });
   }
 
@@ -144,14 +133,12 @@ const main = () => {
         : THEME_NAME_LIGHT;
       setTheme(nextTheme);
     });
-
   }
 
   const theme = localStorage.getItem('theme') || THEME_NAME_LIGHT;
 
   setTheme(theme);
   preloadImages();
-
 };
 
 main();

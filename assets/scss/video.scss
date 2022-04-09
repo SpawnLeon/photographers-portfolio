@@ -82,7 +82,7 @@
   align-items      : center;
   justify-content  : space-between;
   min-height       : 83px;
-  padding          : 2px 0 41px;
+  padding          : 10px 20px 10px;
   background-color : #000;
 }
 
@@ -114,7 +114,7 @@
 }
 
 .video-player-panel__range--progress {
-  width: calc(100% - 380px);
+  width : calc(100% - 380px);
 }
 
 .video-player-panel__range--volume {
@@ -132,6 +132,6 @@
 
 
 .viewer {
-  width : 100%;
+  width      : 100%;
   max-height : 645px;
 }
