@@ -1,0 +1,213 @@
+:root {
+  --dark  : #000;
+  --gold  : #bdae82;
+  --white : #fff;
+}
+
+
+html {
+  font-size       : 20px;
+  font-weight     : 400;
+  line-height     : 1.6;
+  overflow-x      : hidden;
+  width           : 100%;
+  max-width       : 100vw;
+  height          : 100%;
+  color           : var(--white);
+  scroll-behavior : smooth;
+}
+
+body {
+  font-family             : 'Inter', sans-serif;
+  font-size               : 20px;
+  font-weight             : 400;
+  line-height             : 1.6;
+  overflow-x              : hidden;
+  box-sizing              : border-box;
+  width                   : 100%;
+  max-width               : 100vw;
+  margin                  : 0;
+  padding                 : 0;
+  color                   : var(--white);
+  background-color        : var(--dark);
+  -webkit-font-smoothing  : antialiased;
+  -moz-osx-font-smoothing : grayscale;
+  scroll-behavior         : smooth;
+}
+
+*, *:before, *:after {
+  box-sizing : inherit;
+}
+
+
+.container {
+  position  : relative;
+  flex      : 0 0 auto;
+  width     : 100%;
+  max-width : 1440px;
+  margin    : 0 auto;
+  padding   : 0 20px;
+}
+
+.list--clear {
+  margin          : 0;
+  padding         : 0;
+  list-style-type : none;
+}
+
+.section__header {
+  position   : relative;
+  text-align : center;
+}
+
+.section__header::before {
+  content    : '';
+  position   : absolute;
+  top        : 50%;
+  left       : 50%;
+  min-width  : 700px;
+  height     : 2px;
+  transform  : translate(-50%, -50%);
+  background : var(--gold);
+
+  @media (max-width : 768px) {
+    min-width : 364px;
+  }
+}
+
+.section__title {
+  font-family      : 'Merriweather', serif;
+  font-size        : 40px;
+  font-weight      : bold;
+  font-style       : normal;
+  line-height      : 2;
+  position         : relative;
+  display          : inline-block;
+  margin           : 0;
+  padding          : 5px 20px;
+  text-align       : center;
+  color            : var(--gold);
+  background-color : var(--dark);
+
+  @media (max-width : 768px) {
+    font-size : 32px;
+    padding   : 5px 21px;
+  }
+}
+
+
+.visually-hidden {
+  position : absolute;
+  overflow : hidden;
+  clip     : rect(0 0 0 0);
+  width    : 1px;
+  height   : 1px;
+  margin   : -1px;
+  padding  : 0;
+  border   : 0;
+}
+
+.button {
+  font-family      : inherit;
+  font-size        : 20px;
+  line-height      : 2;
+  position         : relative;
+  z-index          : 1;
+  display          : inline-block;
+  overflow         : hidden;
+  min-width        : 220px;
+  cursor           : pointer;
+  transition       : 0.3s color, 0.6s transform ;
+  text-align       : center;
+  text-decoration  : none;
+  color            : var(--dark);
+  background-color : var(--gold);
+  padding          : 6px 11px 5px;
+  border           : 2px solid var(--gold);
+
+  &:hover {
+    color : var(--white);
+    background-color : transparent;
+  }
+
+  @media (max-width : 768px) {
+    min-width : 219px;
+    padding   : 7px 15px 7px;
+  }
+
+  &--clear {
+    padding    : 0;
+    border     : none;
+    background : none;
+  }
+
+
+
+  // .button--transparent
+  &--transparent {
+    padding          : 6px 11px 5px;
+    color            : var(--gold);
+    border           : 2px solid var(--gold);
+    background-color : transparent;
+
+  }
+
+  &--active {
+    color            : var(--dark);
+    background-color : var(--gold);
+  }
+
+  &:hover {
+    color : var(--white);
+  }
+
+  &::before,
+  &::after {
+    content       : "";
+    position      : absolute;
+    z-index       : -1;
+    top           : 0;
+    right         : 0;
+    bottom        : 0;
+    left          : 0;
+    transition    : 0.5s ease-in-out;
+    border-top    : 28px solid var(--gold);
+    border-bottom : 28px solid var(--gold);
+  }
+
+  &::before {
+    transform    : translateX(-100%);
+    border-right : 40px solid #0000;
+  }
+
+  &::after {
+    transform   : translateX(100%);
+    border-left : 40px solid #0000;
+  }
+
+  &:hover::before {
+    transform : translateX(-30%);
+  }
+
+  &:hover::after {
+    transform : translateX(30%);
+  }
+
+}
+
+//theme
+.light {
+  .section__title {
+    color            : var(--dark);
+    background-color : var(--white);
+  }
+
+  .section__header::before {
+    background : var(--dark);
+  }
+
+  .section__title--contacts {
+    color            : var(--gold);
+    background-color : transparent;
+  }
+}
